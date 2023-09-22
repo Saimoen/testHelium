@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Front-end Test</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+  </head>
+  <body>
+    <!-- Edit this html file as needed. -->
+    <div class="editable_box" id="editable_box_widget_edit">
+      <div class="editable_group">
+        <div class="card">
+          <h3>1 Start your widget</h3>
+          <div style="padding-top: 16px">
+            <label style="margin: 30px">Data Source:</label>
+          </div>
+
+          <div class="editable-start" field="element">
+            <input
+              style="width: 79%; border-radius: 5px; height: 30px"
+              placeholder="Search venue, circuit, club..."
+            />
+            <button
+              style="
+                margin-left: -6px;
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+                background-color: #cfd3da;
+              "
+            >
+              <img src="./assets/search.png" alt="" />
+            </button>
+          </div>
+        </div>
+        <div class="card">
+          <h3>2 Setup your widget</h3>
+
+          <div class="editable-setup" field="Name">
+            <div class="">
+              <label>Widget title:</label>
+            </div>
+            <div class="w-100">
+              <input
+                id="myInput"
+                class="w-100"
+                style="border-radius: 3px; height: 37px; margin-top: 10px"
+                type="text"
+                name="Name"
+                value=""
+                placeholder="My super title Leaderboard ACF"
+              />
+              <button style="height: 50px; border-radius: 3px; width: 16%">
+                Save
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="editable-setup"
+            field="ranking_type"
+            style="flex-direction: column"
+          >
+            <label>Rank by:</label>
+            <select name="ranking_type">
+              <option value="EARNINGS">Earnings</option>
+              <option value="ITM">Number of ITM</option>
+              <option value="WIN">Number of 1st place</option>
+            </select>
+          </div>
+
+          <div class="editable-setup" field="period">
+            <label>Filter by time:</label>
+            <select style="border-radius: 3px; height: 37px" name="period">
+              <option value="ALL">All time</option>
+              <option>2023</option>
+              <option>2022</option>
+              <option>2021</option>
+              <option>2020</option>
+              <option>2019</option>
+            </select>
+          </div>
+
+          <div class="options">
+            <select>
+              <option value="Apple">Apple</option>
+              <option value="Banana">Banana</option>
+              <option value="Orange">Orange</option>
+              <option value="Mango">Mango</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="editable_group line_of_2">
+        <div class="card">
+          <h3>3 Customize your widget</h3>
+
+          <div class="editable" field="lang">
+            <label>Language:</label>
+            <select name="lang">
+              <option value="en">English</option>
+              <option value="fr">Français</option>
+            </select>
+          </div>
+
+          <div class="editable" field="colors">
+            <label>Color Scheme:</label>
+            <select name="colors">
+              <option value="0">Light</option>
+            </select>
+          </div>
+
+          <div class="editable" field="size">
+            <label>Widget width:</label>
+            <input type="text" name="size" value="400" />
+            <button>Save</button>
+          </div>
+
+          <div class="editable" field="https">
+            <label>Link in HTTPS</label>
+            <select name="https">
+              <option value="0">No</option>
+              <option value="1">Yes</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      type="text/javascript"
+      src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"
+    ></script>
+    <script type="text/javascript">
+      // if you have time for some JS, do it here.
+      var saving = {};
+      let timeOutSaved = undefined;
+      let timeOutFinished = undefined;
+      $(function () {
+        $(".editable_box button").click(function () {
+          if (typeof timeOutSaved === "number") {
+            clearTimeout(timeOutSaved);
+            clearTimeout(timeOutFinished);
+          }
+          // show it's saving
+          $(this).after(imgs.load);
+          // save
+          var saving = $("#myInput").val();
+          saving["need_good_name"] = alert(saving);
+
+          // emulates a slow save
+          var saved = imgs.saved;
+          timeOutSaved = setTimeout(function () {
+            imgs.load.replaceWith(imgs.saved);
+            imgs.saved.css("display", "flex");
+          }, 1500);
+          timeOutFinished = setTimeout(function () {
+            imgs.saved.css("display", "none");
+          }, 3500);
+        });
+        $(".editable_box select").change(function () {
+          // todo, same as button click... WITHOUT COPY-PASTING ALL CODE.
+        });
+        var imgs = {
+          load: $('<img src="./assets/loading.gif" />'),
+          saved: $('<img src="./assets/saved.png" />'),
+        };
+        $("select").on("change", function () {
+          alert(this.value);
+        });
+        // - If I save 2 elements at the same time, the whole images animation breaks. Can you fix that
+      });
+    </script>
+    <script src="./script.js"></script>
+  </body>
+</html>
